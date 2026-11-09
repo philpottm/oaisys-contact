@@ -1,6 +1,8 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import userConfig from "../config/user.config";
-import { OG_SIZE, avatarCard, avatarCardAlt } from "./lib/ogCards";
+import { OG_SIZE } from "./lib/ogCards";
 import { isShowcase } from "./lib/siteMeta";
 
 // Static export: the route must be prerendered at build time.
@@ -12,12 +14,25 @@ export const dynamic = "force-static";
  */
 export const alt = isShowcase
   ? "Linkfolio — open-source, self-hosted link-in-bio page"
-  : avatarCardAlt;
+  : "Oaisys — Your Business, Better.";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 
 export default function OGImage() {
-  if (!isShowcase) return avatarCard();
+  if (!isShowcase) {
+    // The business-card front, pre-rendered in the brand typeface.
+    const card = readFileSync(join(process.cwd(), "public/assets/og-card.png"));
+    return new ImageResponse(
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={`data:image/png;base64,${card.toString("base64")}`}
+        width={OG_SIZE.width}
+        height={OG_SIZE.height}
+        alt=""
+      />,
+      OG_SIZE,
+    );
+  }
 
   const primary = userConfig.themeColor ?? "#2f5d62";
 

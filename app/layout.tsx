@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import React from "react";
-import { Raleway } from "next/font/google";
+import { Lato } from "next/font/google";
 import "@/assets/globals.css";
 import { Analytics, ThemeProvider } from "@/index";
 import { buildMetadata } from "@/seo";
@@ -9,8 +9,9 @@ import { ThemePresetProvider } from "./lib/ThemePresetProvider";
 import { PRESET_BOOT_SCRIPT } from "./lib/themePreset";
 import userConfig from "../config/user.config";
 
-const font = Raleway({
-  weight: "400",
+const font = Lato({
+  weight: ["400", "700"],
+  variable: "--font-lato",
   subsets: ["latin"],
   display: "swap",
 });
@@ -67,7 +68,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: PRESET_BOOT_SCRIPT }} />
       </head>
 
-      <body className={font.className}>
+      <body className={`${font.className} ${font.variable}`}>
         <ThemeProvider>
           <ThemePresetProvider>{children}</ThemePresetProvider>
         </ThemeProvider>
