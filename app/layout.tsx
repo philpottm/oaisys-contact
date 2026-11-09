@@ -15,11 +15,16 @@ const font = Raleway({
   display: "swap",
 });
 
+// The Pages subpath, derived from the deployment origin so it cannot drift
+// from next.config.js basePath. Empty (root) when no origin is set — local
+// development and the template's own deploy both serve from the root.
+const basePath = appUrl ? new URL(appUrl).pathname.replace(/\/$/, "") : "";
+
 const baseMetadata = buildMetadata(userConfig, { siteUrl: appUrl });
 
 export const metadata: Metadata = {
   ...baseMetadata,
-  manifest: "/manifest.json",
+  manifest: `${basePath}/manifest.json`,
   other: {
     ...baseMetadata.other,
     "msapplication-TileColor": userConfig.themeColor ?? "#2f5d62",
@@ -54,7 +59,7 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
         <link
           rel="mask-icon"
-          href="/safari-pinned-tab.svg"
+          href={`${basePath}/safari-pinned-tab.svg`}
           color={userConfig.themeColor ?? "#2f5d62"}
         />
 

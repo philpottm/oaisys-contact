@@ -30,6 +30,9 @@ export function buildMetadata(
   const metadataBase = toMetadataBase(origin);
   const title = config.metaTitle ?? config.fullName ?? "Linkfolio";
   const description = config.metaDescription ?? "";
+  // Icon paths do not inherit Next's `basePath`, so derive the subpath from
+  // the origin — empty for root deployments, keeping upstream behaviour.
+  const basePath = metadataBase?.pathname.replace(/\/$/, "") ?? "";
 
   return {
     title,
@@ -53,11 +56,11 @@ export function buildMetadata(
     },
     icons: {
       icon: [
-        { url: "/favicon.ico", sizes: "any" },
-        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+        { url: `${basePath}/favicon.ico`, sizes: "any" },
+        { url: `${basePath}/favicon-32x32.png`, sizes: "32x32", type: "image/png" },
+        { url: `${basePath}/favicon-16x16.png`, sizes: "16x16", type: "image/png" },
       ],
-      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+      apple: [{ url: `${basePath}/apple-touch-icon.png`, sizes: "180x180" }],
     },
     appleWebApp: { capable: true, statusBarStyle: "default", title },
     ...(config.themeColor && {
