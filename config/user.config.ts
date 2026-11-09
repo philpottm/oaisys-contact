@@ -9,7 +9,7 @@ import type { UserConfigType } from "@/types";
  * SEO/structured-data metadata correct when the build has no env.
  */
 const userConfig: UserConfigType = {
-  siteUrl: "https://event.oaisys.gr",
+  siteUrl: "https://contact.oaisys.gr",
   avatarSrc: "/assets/oaisys-mark.png",
   avatarAlt: "Oaisys",
   fullName: "Oaisys",
@@ -38,7 +38,7 @@ const userConfig: UserConfigType = {
   enableTypingAlias: false,
   socialNetworks: [
     {
-      url: "https://event.oaisys.gr/catalogues.html",
+      url: "https://contact.oaisys.gr/catalogues.html",
       iconSrc: "/assets/tile-catalogue.png",
       title: "Exhibitor catalogues",
       description:
@@ -65,6 +65,13 @@ const userConfig: UserConfigType = {
       iconSrc: "/assets/tile-email.png",
       title: "Email us",
       description: "info@oaisys.gr",
+      group: "socialnetwork",
+    },
+    {
+      url: "https://contact.oaisys.gr/oaisys.vcf",
+      iconSrc: "/assets/tile-vcard.png",
+      title: "Save contact",
+      description: "Download Oaisys vCard",
       group: "socialnetwork",
     },
   ],
