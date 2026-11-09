@@ -9,8 +9,8 @@ import type { UserConfigType } from "@/types";
  * SEO/structured-data metadata correct when the build has no env.
  */
 const userConfig: UserConfigType = {
-  siteUrl: "https://philpottm.github.io/oaisys-helexpo-2026",
-  avatarSrc: "/oaisys-helexpo-2026/assets/oaisys-mark.png",
+  siteUrl: "https://event.oaisys.gr",
+  avatarSrc: "/assets/oaisys-mark.png",
   avatarAlt: "Oaisys",
   fullName: "Oaisys",
   alias: "HELEXPO · 13 November 2026",
@@ -38,8 +38,8 @@ const userConfig: UserConfigType = {
   enableTypingAlias: false,
   socialNetworks: [
     {
-      url: "https://philpottm.github.io/oaisys-helexpo-2026/catalogues.html",
-      iconSrc: "/oaisys-helexpo-2026/assets/tile-catalogue.png",
+      url: "https://event.oaisys.gr/catalogues.html",
+      iconSrc: "/assets/tile-catalogue.png",
       title: "Exhibitor catalogues",
       description:
         "230 Philoxenia–Hotelia exhibitors · 242 Food & Drinks brands",
@@ -48,21 +48,21 @@ const userConfig: UserConfigType = {
     },
     {
       url: "https://oaisys.gr",
-      iconSrc: "/oaisys-helexpo-2026/assets/tile-website.png",
+      iconSrc: "/assets/tile-website.png",
       title: "Oaisys",
       description: "AI booking assistant for Greek tourism operators",
       group: "website",
     },
     {
       url: "https://book.oaisys.gr/",
-      iconSrc: "/oaisys-helexpo-2026/assets/tile-book.png",
+      iconSrc: "/assets/tile-book.png",
       title: "Book a meeting",
       description: "20 minutes, no obligation",
       group: "website",
     },
     {
       url: "mailto:info@oaisys.gr",
-      iconSrc: "/oaisys-helexpo-2026/assets/tile-email.png",
+      iconSrc: "/assets/tile-email.png",
       title: "Email us",
       description: "info@oaisys.gr",
       group: "socialnetwork",

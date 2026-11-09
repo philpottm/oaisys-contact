@@ -5,7 +5,7 @@ where three fairs open the same day: Philoxenia–Hotelia 2026 (tourism + hotel
 equipment) and Food & Drinks by Detrop 2026 (food & beverage).
 
 Built on [Linkfolio](https://github.com/heristop/linkfolio) (MIT), statically
-exported and served from GitHub Pages.
+exported and served from GitHub Pages at https://event.oaisys.gr (public/CNAME).
 
 ## Pages
 
