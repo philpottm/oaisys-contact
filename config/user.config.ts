@@ -9,14 +9,14 @@ import {
 /**
  * Oaisys contact page — the link-in-bio handed out on business cards.
  *
- * Website, booking, email (info, Mark, Matthew), phone, Google Maps and the
- * company socials, plus a downloadable vCard. Public origin is set by
- * NEXT_APP_URL at build time; siteUrl here keeps the SEO/structured-data
- * metadata correct when the build has no env.
+ * Website, booking, email, phone, Google Maps and the company socials, plus a
+ * downloadable vCard. Public origin is set by NEXT_APP_URL at build time;
+ * siteUrl here keeps the SEO/structured-data metadata correct when the build
+ * has no env.
  */
 const userConfig: UserConfigType = {
   siteUrl: "https://contact.oaisys.gr",
-  avatarSrc: "/assets/oaisys-mark.png",
+  avatarSrc: "/assets/avatar-mark.png",
   avatarAlt: "Oaisys",
   fullName: "Oaisys",
   alias: "@oaisys",
@@ -34,25 +34,26 @@ const userConfig: UserConfigType = {
   worksFor: "Oaisys",
   locale: "en_GB",
   lang: "en",
-  themeColor: "#1868A0",
+  themeColor: "#356FA1",
   themePreset: "ocean",
   theme: {
-    "color-primary": "#1868A0",
+    "color-primary": "#356FA1",
   },
   enableTypingAlias: false,
   socialNetworks: [
-    {
-      url: "https://oaisys.gr",
-      iconSrc: "/assets/tile-website.png",
-      title: "Oaisys",
-      description: "AI booking assistant for Greek tourism operators",
-      group: "website",
-    },
     {
       url: "https://book.oaisys.gr/",
       iconSrc: "/assets/tile-book.png",
       title: "Book a meeting",
       description: "20 minutes, no obligation",
+      group: "website",
+      span: "2x2",
+    },
+    {
+      url: "https://oaisys.gr",
+      iconSrc: "/assets/tile-website.png",
+      title: "Oaisys",
+      description: "AI booking assistant for Greek tourism operators",
       group: "website",
     },
     {
@@ -63,24 +64,24 @@ const userConfig: UserConfigType = {
       group: "socialnetwork",
     },
     {
-      url: "mailto:mark@oaisys.gr",
-      iconSrc: "/assets/tile-email.png",
-      title: "Email Mark",
-      description: "mark@oaisys.gr",
-      group: "socialnetwork",
-    },
-    {
-      url: "mailto:matthew@oaisys.gr",
-      iconSrc: "/assets/tile-email.png",
-      title: "Email Matthew",
-      description: "matthew@oaisys.gr",
-      group: "socialnetwork",
-    },
-    {
       url: "tel:+306941620276",
       iconSrc: "/assets/tile-phone.png",
       title: "Call us",
       description: "+30 694 1620276",
+      group: "socialnetwork",
+    },
+    {
+      url: "https://www.google.com/maps/place//data=!4m2!3m1!1s0x14a83f749778655b:0x649b3306ae046387?sa=X&ved=1t:8290&hl=en-GB&ictx=111",
+      iconSrc: "/assets/tile-maps.png",
+      title: "Find us",
+      description: "Agriteli, Kalamaria, Thessaloniki 551 32",
+      group: "socialnetwork",
+    },
+    {
+      url: "https://contact.oaisys.gr/oaisys.vcf",
+      iconSrc: "/assets/tile-vcard.png",
+      title: "Save contact",
+      description: "Download Oaisys vCard",
       group: "socialnetwork",
     },
     {
@@ -109,20 +110,6 @@ const userConfig: UserConfigType = {
       iconSrc: xIcon,
       title: "X",
       description: "@OaisysGR",
-      group: "socialnetwork",
-    },
-    {
-      url: "https://www.google.com/maps/place//data=!4m2!3m1!1s0x14a83f749778655b:0x649b3306ae046387?sa=X&ved=1t:8290&hl=en-GB&ictx=111",
-      iconSrc: "/assets/tile-maps.png",
-      title: "Find us",
-      description: "Agriteli, Kalamaria, Thessaloniki 551 32",
-      group: "socialnetwork",
-    },
-    {
-      url: "https://contact.oaisys.gr/oaisys.vcf",
-      iconSrc: "/assets/tile-vcard.png",
-      title: "Save contact",
-      description: "Download Oaisys vCard",
       group: "socialnetwork",
     },
   ],

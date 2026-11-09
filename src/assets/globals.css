@@ -1247,3 +1247,22 @@
     transition-timing-function: var(--lf-ease-out);
   }
 }
+
+/* Oaisys wordmark: light body/blue accent on the light theme, inverted on
+   dark, so the coloured "i" keeps its contrast in both. */
+.wordmark {
+  height: 40px;
+  width: auto;
+}
+.wordmark-light {
+  display: inline-block;
+}
+.wordmark-dark {
+  display: none;
+}
+.dark .wordmark-light {
+  display: none;
+}
+.dark .wordmark-dark {
+  display: inline-block;
+}

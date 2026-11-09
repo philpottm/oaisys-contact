@@ -6,8 +6,8 @@ and served from GitHub Pages at https://contact.oaisys.gr (public/CNAME).
 
 ## Pages
 
-- `/` — Oaisys profile: website, book a meeting, email (info, Mark, Matthew),
-  phone, Instagram, Facebook, YouTube, X, Google Maps and a downloadable vCard.
+- `/` — Oaisys profile: book a meeting, website, email, phone, Instagram,
+  Facebook, YouTube, X, Google Maps and a downloadable vCard.
 - `/oaisys.vcf` — the vCard the "Save contact" card links to.
 - `/catalogues.html` — unlinked, noindexed working copy of the HELEXPO fair
   catalogues (own use at the fair; not part of the public page).

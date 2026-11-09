@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { LinkFolio } from "@/index";
 import userConfig from "~/user.config";
 import { deployLayout, isShowcase, pageMetadata } from "./lib/siteMeta";
+import OaisysProfile from "./lib/OaisysProfile";
 import LandingPage, { PAGE_DESCRIPTION, PAGE_TITLE } from "./lib/LandingPage";
 
 /**
@@ -27,6 +28,9 @@ export default function Home() {
   return isShowcase ? (
     <LandingPage />
   ) : (
-    <LinkFolio userConfig={{ ...userConfig, layout: deployLayout }} />
+    <LinkFolio
+      userConfig={{ ...userConfig, layout: deployLayout }}
+      UserProfileComponent={OaisysProfile}
+    />
   );
 }
