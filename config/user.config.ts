@@ -10,7 +10,8 @@ import {
  * Oaisys contact page — the link-in-bio handed out on business cards.
  *
  * Website, booking, email, phone, Google Maps and the company socials, plus a
- * downloadable vCard. Public origin is set by NEXT_APP_URL at build time;
+ * downloadable vCard. The page itself is app/lib/OaisysContact.tsx; these
+ * links feed the SEO structured data. Public origin is set by NEXT_APP_URL;
  * siteUrl here keeps the SEO/structured-data metadata correct when the build
  * has no env.
  */
@@ -43,7 +44,7 @@ const userConfig: UserConfigType = {
   socialNetworks: [
     {
       url: "https://book.oaisys.gr/",
-      iconSrc: "/assets/tile-book.png",
+      iconSrc: "/assets/mark.png",
       title: "Book a meeting",
       description: "20 minutes, no obligation",
       group: "website",
@@ -51,35 +52,35 @@ const userConfig: UserConfigType = {
     },
     {
       url: "https://oaisys.gr",
-      iconSrc: "/assets/tile-website.png",
+      iconSrc: "/assets/mark.png",
       title: "Oaisys",
       description: "AI booking assistant for Greek tourism operators",
       group: "website",
     },
     {
       url: "mailto:info@oaisys.gr",
-      iconSrc: "/assets/tile-email.png",
+      iconSrc: "/assets/mark.png",
       title: "Email us",
       description: "info@oaisys.gr",
       group: "socialnetwork",
     },
     {
       url: "tel:+306941620276",
-      iconSrc: "/assets/tile-phone.png",
+      iconSrc: "/assets/mark.png",
       title: "Call us",
       description: "+30 694 1620276",
       group: "socialnetwork",
     },
     {
       url: "https://www.google.com/maps/place//data=!4m2!3m1!1s0x14a83f749778655b:0x649b3306ae046387?sa=X&ved=1t:8290&hl=en-GB&ictx=111",
-      iconSrc: "/assets/tile-maps.png",
+      iconSrc: "/assets/mark.png",
       title: "Find us",
       description: "Agriteli, Kalamaria, Thessaloniki 551 32",
       group: "socialnetwork",
     },
     {
       url: "https://contact.oaisys.gr/oaisys.vcf",
-      iconSrc: "/assets/tile-vcard.png",
+      iconSrc: "/assets/mark.png",
       title: "Save contact",
       description: "Download Oaisys vCard",
       group: "socialnetwork",

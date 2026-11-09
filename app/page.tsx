@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { LinkFolio } from "@/index";
-import userConfig from "~/user.config";
-import { deployLayout, isShowcase, pageMetadata } from "./lib/siteMeta";
-import OaisysProfile from "./lib/OaisysProfile";
+import { isShowcase, pageMetadata } from "./lib/siteMeta";
+import OaisysContact from "./lib/OaisysContact";
 import LandingPage, { PAGE_DESCRIPTION, PAGE_TITLE } from "./lib/LandingPage";
 
 /**
@@ -20,17 +18,13 @@ export const metadata: Metadata = isShowcase
 
 /**
  * The template's two lives share this route: the project's own deployment
- * (LINKFOLIO_SHOWCASE=1) markets Linkfolio here, while a fork's deployment —
- * the default — is the person's actual link-in-bio page, matching the shape
- * of the reference app heristop/my-linkfolio.
+ * (LINKFOLIO_SHOWCASE=1) markets Linkfolio here; this deployment renders the
+ * Oaisys contact page, styled after the printed business card.
  */
 export default function Home() {
   return isShowcase ? (
     <LandingPage />
   ) : (
-    <LinkFolio
-      userConfig={{ ...userConfig, layout: deployLayout }}
-      UserProfileComponent={OaisysProfile}
-    />
+    <OaisysContact />
   );
 }
