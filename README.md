@@ -1,24 +1,20 @@
-# Oaisys — HELEXPO 2026 event page
+# Oaisys — contact page
 
-Link-in-bio page for Oaisys at HELEXPO Thessaloniki, Friday 13 November 2026,
-where three fairs open the same day: Philoxenia–Hotelia 2026 (tourism + hotel
-equipment) and Food & Drinks by Detrop 2026 (food & beverage).
-
-Built on [Linkfolio](https://github.com/heristop/linkfolio) (MIT), statically
-exported and served from GitHub Pages at https://contact.oaisys.gr (public/CNAME).
+Link-in-bio page for Oaisys, handed out on business cards. Built on
+[Linkfolio](https://github.com/heristop/linkfolio) (MIT), statically exported
+and served from GitHub Pages at https://contact.oaisys.gr (public/CNAME).
 
 ## Pages
 
-- `/` — Oaisys profile with links to the catalogues, the website, booking and email.
-- `/catalogues.html` — the two official exhibitor catalogues:
-  230 Philoxenia–Hotelia exhibitors (name, pavilion/stand, country, category,
-  website, email) from the HELEXPO e-catalogue, and 242 Food & Drinks brands
-  from the official Eventora web app. Data as of 2026-11-09; counts may grow
-  before the fair opens.
+- `/` — Oaisys profile: website, book a meeting, email (info, Mark, Matthew),
+  phone, Instagram, Facebook, YouTube, X, Google Maps and a downloadable vCard.
+- `/oaisys.vcf` — the vCard the "Save contact" card links to.
+- `/catalogues.html` — unlinked, noindexed working copy of the HELEXPO fair
+  catalogues (own use at the fair; not part of the public page).
 
 ## Deploy
 
 Push to `main` — the `deploy.yml` workflow builds the static export and
 publishes it to GitHub Pages. The site URL lives in two places that must stay
 in sync: `NEXT_APP_URL` in `.github/workflows/deploy.yml` and `siteUrl` in
-`config/user.config.ts` (also the catalogue link in the same file).
+`config/user.config.ts` (also the vCard link in the same file).

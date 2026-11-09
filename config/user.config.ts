@@ -1,30 +1,34 @@
 import type { UserConfigType } from "@/types";
+import {
+  facebookIcon,
+  instagramIcon,
+  xIcon,
+  youtubeIcon,
+} from "@/assets";
 
 /**
- * Oaisys at HELEXPO Thessaloniki, 13 November 2026.
+ * Oaisys contact page — the link-in-bio handed out on business cards.
  *
- * Event link-in-bio: the two official exhibitor catalogues (Philoxenia–Hotelia
- * and Food & Drinks by Detrop) plus the Oaisys website, booking and email.
- * Public origin is set by NEXT_APP_URL at build time; siteUrl here keeps the
- * SEO/structured-data metadata correct when the build has no env.
+ * Website, booking, email (info, Mark, Matthew), phone, Google Maps and the
+ * company socials, plus a downloadable vCard. Public origin is set by
+ * NEXT_APP_URL at build time; siteUrl here keeps the SEO/structured-data
+ * metadata correct when the build has no env.
  */
 const userConfig: UserConfigType = {
   siteUrl: "https://contact.oaisys.gr",
   avatarSrc: "/assets/oaisys-mark.png",
   avatarAlt: "Oaisys",
   fullName: "Oaisys",
-  alias: "HELEXPO · 13 November 2026",
-  metaTitle: "Oaisys at HELEXPO 2026 — exhibitor catalogues",
+  alias: "@oaisys",
+  metaTitle: "Oaisys — AI booking assistant for Greek tourism operators",
   metaDescription:
-    "Meet Oaisys at HELEXPO Thessaloniki, 13 November 2026. AI booking assistant for Greek tourism operators — with the full exhibitor catalogues for Philoxenia–Hotelia and Food & Drinks by Detrop.",
+    "Oaisys builds and runs an AI assistant for small Greek tourism businesses: WhatsApp and email enquiries answered in seconds, bookings kept on one diary, and a calm daily view for the owner.",
   keywords: [
     "Oaisys",
-    "HELEXPO",
-    "Philoxenia",
-    "Hotelia",
-    "Detrop",
-    "Thessaloniki",
     "AI booking assistant",
+    "Greek tourism",
+    "hospitality",
+    "Thessaloniki",
   ],
   jobTitle: "AI booking assistant for Greek tourism operators",
   worksFor: "Oaisys",
@@ -37,15 +41,6 @@ const userConfig: UserConfigType = {
   },
   enableTypingAlias: false,
   socialNetworks: [
-    {
-      url: "https://contact.oaisys.gr/catalogues.html",
-      iconSrc: "/assets/tile-catalogue.png",
-      title: "Exhibitor catalogues",
-      description:
-        "230 Philoxenia–Hotelia exhibitors · 242 Food & Drinks brands",
-      group: "project",
-      span: "2x2",
-    },
     {
       url: "https://oaisys.gr",
       iconSrc: "/assets/tile-website.png",
@@ -65,6 +60,62 @@ const userConfig: UserConfigType = {
       iconSrc: "/assets/tile-email.png",
       title: "Email us",
       description: "info@oaisys.gr",
+      group: "socialnetwork",
+    },
+    {
+      url: "mailto:mark@oaisys.gr",
+      iconSrc: "/assets/tile-email.png",
+      title: "Email Mark",
+      description: "mark@oaisys.gr",
+      group: "socialnetwork",
+    },
+    {
+      url: "mailto:matthew@oaisys.gr",
+      iconSrc: "/assets/tile-email.png",
+      title: "Email Matthew",
+      description: "matthew@oaisys.gr",
+      group: "socialnetwork",
+    },
+    {
+      url: "tel:+306941620276",
+      iconSrc: "/assets/tile-phone.png",
+      title: "Call us",
+      description: "+30 694 1620276",
+      group: "socialnetwork",
+    },
+    {
+      url: "https://www.instagram.com/oaisys.gr/",
+      iconSrc: instagramIcon,
+      title: "Instagram",
+      description: "@oaisys.gr",
+      group: "socialnetwork",
+    },
+    {
+      url: "https://www.facebook.com/Oaisys.gr",
+      iconSrc: facebookIcon,
+      title: "Facebook",
+      description: "Oaisys.gr",
+      group: "socialnetwork",
+    },
+    {
+      url: "https://www.youtube.com/@OaisysGR",
+      iconSrc: youtubeIcon,
+      title: "YouTube",
+      description: "@OaisysGR",
+      group: "socialnetwork",
+    },
+    {
+      url: "https://x.com/OaisysGR",
+      iconSrc: xIcon,
+      title: "X",
+      description: "@OaisysGR",
+      group: "socialnetwork",
+    },
+    {
+      url: "https://www.google.com/maps/place//data=!4m2!3m1!1s0x14a83f749778655b:0x649b3306ae046387?sa=X&ved=1t:8290&hl=en-GB&ictx=111",
+      iconSrc: "/assets/tile-maps.png",
+      title: "Find us",
+      description: "Agriteli, Kalamaria, Thessaloniki 551 32",
       group: "socialnetwork",
     },
     {

@@ -6,19 +6,21 @@ Print-ready QR: `print/contact.oaisys.gr.png` (2000 px) and
 
 ## Suggested short links for the card
 
-| Line | Destination | Verified source |
+| Line | Destination | Source |
 |---|---|---|
-| Website | https://oaisys.gr | Live marketing site (footer/nav), checked 2026-11-09 |
-| Book a meeting | https://book.oaisys.gr/ | Live marketing site CTA, checked 2026-11-09 |
-| Email | info@oaisys.gr | Live marketing site contact section, checked 2026-11-09 |
-| Save contact (vCard) | https://contact.oaisys.gr/oaisys.vcf | This page, same details |
+| Website | https://oaisys.gr | Live site |
+| Book a meeting | https://book.oaisys.gr/ | Live site CTA |
+| Email | info@oaisys.gr | Live site contact section |
+| Mark | mark@oaisys.gr | Company mailbox set (as-built) |
+| Matthew | matthew@oaisys.gr | Company mailbox set (as-built) |
+| Phone | +30 694 1620276 | Company details |
+| Instagram | https://www.instagram.com/oaisys.gr/ | Company details |
+| Facebook | https://www.facebook.com/Oaisys.gr | Company details |
+| YouTube | https://www.youtube.com/@OaisysGR | Company details |
+| X | https://x.com/OaisysGR | Company details |
+| Save contact (vCard) | https://contact.oaisys.gr/oaisys.vcf | This page |
 
-## Deliberately not listed
-
-No WhatsApp number, phone number, LinkedIn page or social handle for Oaisys was
-found in the repository or on the live site (oaisys.gr source contains no
-`tel:`, `wa.me`, LinkedIn/Facebook/Instagram references). None are invented; add
-one only when a real number/handle exists.
+Address for print, if shown: Agriteli, Kalamaria, Thessaloniki 551 32.
 
 ## Print guidance
 

@@ -10,7 +10,7 @@ const Footer: React.FC<FooterProps> = () => {
     <footer className="lf-footer mx-auto mt-10 px-6 py-2 text-xs">
       <div className="flex flex-col items-center justify-center">
         <div className="text-xs">
-          © 2026 Oaisys · HELEXPO Thessaloniki
+          © 2026 Oaisys
         </div>
       </div>
     </footer>

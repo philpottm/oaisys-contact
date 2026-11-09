@@ -3,6 +3,11 @@ VERSION:3.0
 FN:Oaisys
 ORG:Oaisys
 EMAIL;TYPE=INTERNET:info@oaisys.gr
+TEL;TYPE=WORK:+30 694 1620276
 URL:https://oaisys.gr
-ADR;TYPE=WORK:;;Agriteli;Kalamaria;;55132;Greece
+ADR;TYPE=WORK:;;Agriteli;Kalamaria;Thessaloniki;;55132;Greece
+X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/oaisys.gr/
+X-SOCIALPROFILE;TYPE=facebook:https://www.facebook.com/Oaisys.gr
+X-SOCIALPROFILE;TYPE=youtube:https://www.youtube.com/@OaisysGR
+X-SOCIALPROFILE;TYPE=twitter:https://x.com/OaisysGR
 END:VCARD
