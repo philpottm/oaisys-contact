@@ -45,7 +45,7 @@ jobs:
       # baselines are named per layout and do not collide.
       - name: Run profile-mode tests (bento)
         run: LINKFOLIO_LAYOUT=bento pnpm exec playwright test -c playwright.profile.config.ts
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: playwright-report
