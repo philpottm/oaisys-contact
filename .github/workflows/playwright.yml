@@ -1,0 +1,53 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  # A baseline refresh is committed by Update Visual Baselines using
+  # GITHUB_TOKEN, and GitHub does not start workflows from those pushes. This
+  # is how the suite gets re-run against fresh baselines without an empty
+  # commit.
+  workflow_dispatch:
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
+      - name: Typecheck
+        run: pnpm run typecheck
+      # No browser, no server: the fastest signal in the pipeline, so it runs
+      # before anything that needs a build.
+      - name: Run unit tests
+        run: pnpm run test:unit
+      # Builds dist/ first, which the packaging assertions read.
+      - name: Run package tests
+        run: pnpm run test:package
+      - name: Run Playwright tests
+        run: pnpm exec playwright test
+      # Rebuilds without LINKFOLIO_SHOWCASE: asserts a fork's default deploy
+      # is the clean profile page (no landing, /docs and /demo 404), and holds
+      # the rendered-output baseline for the card.
+      - name: Run profile-mode tests
+        run: pnpm exec playwright test -c playwright.profile.config.ts
+      # Same suite against a bento build. The layout is baked in at build
+      # time, so covering both arrangements means building twice; the
+      # baselines are named per layout and do not collide.
+      - name: Run profile-mode tests (bento)
+        run: LINKFOLIO_LAYOUT=bento pnpm exec playwright test -c playwright.profile.config.ts
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 10
