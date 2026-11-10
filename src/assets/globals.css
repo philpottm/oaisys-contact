@@ -1317,6 +1317,21 @@
   font-size: 14px;
   color: var(--oc-sand-light);
 }
+/* Phones: mark and wordmark share one row so the hero is short and the action
+   list sits on the first screen. From 520px up the card stacks them again. */
+@media (max-width: 519.98px) {
+  .oc-front { padding: 22px 20px 18px; }
+  .oc-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .oc-mark { width: 56px; height: 56px; margin: 0; }
+  .oc-wordmark { font-size: 42px; }
+  .oc-tagline { margin-top: 12px; font-size: 18px; }
+  .oc-address { margin-top: 4px; font-size: 13px; }
+}
 .oc-back {
   flex: 1;
   padding: 26px 22px 22px 28px;
@@ -1449,6 +1464,17 @@
   color: var(--oc-muted);
 }
 .oc-footer img { width: 20px; height: 20px; }
+@media (max-width: 519.98px) {
+  .oc-back { padding: 18px 20px 14px 24px; gap: 10px; }
+  .oc-primary { padding: 12px 16px; }
+  .oc-grid, .oc-list { gap: 10px; }
+  .oc-tile { padding: 12px; }
+  .oc-tile .oc-chip { margin-bottom: 8px; }
+  .oc-row { padding-block: 10px; }
+  .oc-socials { padding-top: 2px; }
+  .oc-back .oc-social { width: 42px; height: 42px; }
+  .oc-footer { padding-top: 4px; }
+}
 @media (prefers-reduced-motion: reduce) {
   .oc-primary, .oc-tile, .oc-row, .oc-chevron, .oc-social { transition: none; }
 }
