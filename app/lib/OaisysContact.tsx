@@ -215,17 +215,19 @@ const OaisysContact: React.FC = () => (
   <div className="oc-page">
     <main className="oc-sheet">
       <header className="oc-front">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/assets/mark-reversed.png"
-          alt=""
-          width={88}
-          height={88}
-          className="oc-mark"
-        />
-        <h1 className="oc-title">
-          <Wordmark />
-        </h1>
+        <div className="oc-brand">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/assets/mark-reversed.png"
+            alt=""
+            width={88}
+            height={88}
+            className="oc-mark"
+          />
+          <h1 className="oc-title">
+            <Wordmark />
+          </h1>
+        </div>
         <p className="oc-tagline">Your Business, Better.</p>
         <p className="oc-address">{ADDRESS}</p>
       </header>
