@@ -1320,7 +1320,7 @@
 /* Phones: mark and wordmark share one row so the hero is short and the action
    list sits on the first screen. From 520px up the card stacks them again. */
 @media (max-width: 519.98px) {
-  .oc-front { padding: 22px 20px 18px; }
+  .oc-front { padding: 20px 20px 16px; }
   .oc-brand {
     display: flex;
     align-items: center;
@@ -1465,7 +1465,7 @@
 }
 .oc-footer img { width: 20px; height: 20px; }
 @media (max-width: 519.98px) {
-  .oc-back { padding: 18px 20px 14px 24px; gap: 10px; }
+  .oc-back { padding: 14px 20px 10px 24px; gap: 10px; }
   .oc-primary { padding: 12px 16px; }
   .oc-grid, .oc-list { gap: 10px; }
   .oc-tile { padding: 12px; }
