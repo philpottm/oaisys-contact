@@ -1478,3 +1478,248 @@
 @media (prefers-reduced-motion: reduce) {
   .oc-primary, .oc-tile, .oc-row, .oc-chevron, .oc-social { transition: none; }
 }
+
+/* "Request Free Digital Presence Check": a second prominent card under Book a meeting
+   (white with a blue edge, so the blue card stays the main action), and its form in a
+   modal dialog. Same radius, spacing and colours as the rest of the sheet. */
+.oc-check-cta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: #fff;
+  border: 2px solid var(--oc-blue);
+  color: var(--oc-ink) !important;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+.oc-check-cta:hover {
+  background: var(--oc-wash);
+  border-color: var(--oc-blue-deep);
+}
+.oc-check-cta:active {
+  transform: scale(0.985);
+}
+.oc-check-cta:hover .oc-chevron {
+  transform: translateX(3px);
+}
+.oc-check-icon {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: var(--oc-wash);
+  color: var(--oc-blue);
+  box-shadow: inset 0 0 0 1.5px var(--oc-sky);
+}
+.oc-check-icon .oc-icon {
+  width: 24px;
+  height: 24px;
+}
+.oc-check-title {
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.25;
+  color: var(--oc-blue-deep);
+}
+.oc-check-detail {
+  font-size: 14px;
+  color: var(--oc-muted);
+  margin-top: 2px;
+}
+
+.oc-dialog {
+  width: min(460px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  margin: auto;
+  padding: 20px 22px 22px;
+  border: 0;
+  border-radius: 18px;
+  background: #fff;
+  color: var(--oc-ink);
+  box-shadow: 0 24px 60px -16px rgb(26 55 80 / 0.5);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.oc-dialog::backdrop {
+  background: rgb(26 42 56 / 0.55);
+}
+body:has(.oc-dialog[open]) {
+  overflow: hidden;
+}
+.oc-dialog-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.oc-dialog-title {
+  margin: 0;
+  font-size: 21px;
+  line-height: 1.2;
+  color: var(--oc-blue);
+}
+.oc-dialog-close {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin: -8px -10px 0 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--oc-muted);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+.oc-dialog-close:hover {
+  background: var(--oc-wash);
+  color: var(--oc-ink);
+}
+.oc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 6px;
+}
+.oc-form-lede {
+  margin: 0;
+  color: var(--oc-muted);
+  font-size: 15px;
+}
+.oc-field label {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.oc-field input {
+  width: 100%;
+  font: inherit;
+  font-size: 16px; /* 16px stops iOS zooming the page when a field is focused */
+  padding: 11px 12px;
+  border: 1.5px solid #b8c6d2;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--oc-ink);
+}
+.oc-field input:focus-visible {
+  outline: 3px solid var(--oc-sand);
+  outline-offset: 1px;
+  border-color: var(--oc-blue);
+}
+.oc-field input[aria-invalid="true"] {
+  border-color: #b4502b;
+}
+.oc-error {
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #8b3a1b;
+}
+.oc-problem {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fbe7de;
+}
+.oc-trap {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.oc-consent {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--oc-wash);
+  border: 1px solid var(--oc-line);
+}
+.oc-consent input {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin: 1px 0 0;
+  accent-color: var(--oc-blue);
+  cursor: pointer;
+}
+.oc-consent label {
+  font-size: 14px;
+  line-height: 1.45;
+  cursor: pointer;
+}
+.oc-consent input:focus-visible {
+  outline: 3px solid var(--oc-sand);
+  outline-offset: 2px;
+}
+.oc-submit {
+  font: inherit;
+  font-weight: 700;
+  font-size: 17px;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--oc-blue);
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    opacity 160ms ease;
+}
+.oc-submit:hover:not(:disabled) {
+  background: var(--oc-blue-deep);
+}
+.oc-submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.oc-submit:focus-visible {
+  outline: 3px solid var(--oc-sand);
+  outline-offset: 3px;
+}
+.oc-hint {
+  margin: -6px 0 0;
+  font-size: 13px;
+  color: var(--oc-muted);
+}
+.oc-thanks {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.oc-thanks p {
+  margin: 0;
+}
+.oc-thanks-title {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--oc-blue-deep);
+}
+.oc-thanks .oc-submit {
+  margin-top: 8px;
+}
+@media (max-width: 519.98px) {
+  .oc-check-cta {
+    padding: 12px 16px;
+  }
+  .oc-dialog {
+    padding: 16px 16px 18px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .oc-check-cta,
+  .oc-submit {
+    transition: none;
+  }
+}

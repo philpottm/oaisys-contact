@@ -1,0 +1,44 @@
+name: Presence Check Form Tests
+
+# The "Request Free Digital Presence Check" form on the contact page. The older
+# "Playwright Tests" workflow targets the Linkfolio template and cannot serve
+# this static export (`next start` refuses `output: "export"`), so the form has
+# its own checks: typecheck, its unit tests, and a browser run against the built
+# page (the audit desk's intake route is stubbed; nothing leaves the runner).
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  presence:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps
+      - name: Typecheck
+        run: pnpm run typecheck
+      - name: Form unit tests
+        run: pnpm exec vitest run tests/unit/presence-check.spec.ts
+      - name: Form browser tests
+        run: pnpm run test:presence
+      - uses: actions/upload-artifact@v5
+        if: always()
+        with:
+          name: presence-playwright-report
+          path: playwright-report/
+          retention-days: 10

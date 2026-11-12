@@ -1,11 +1,14 @@
 import React from "react";
 import userConfig from "~/user.config";
+import PresenceCheckRequest from "./PresenceCheckRequest";
 
 /**
  * Oaisys contact page, drawn from the printed business card: the front (brand
  * blue, reversed mark, "Oaisys" with a sky "ai", tagline, address) is the
  * hero; the back (white, a blue edge, sand labels) sets the action list.
- * Plain links only — no client JavaScript.
+ * Plain links only. The one exception is the "Request Free Digital Presence
+ * Check" form, a small client island whose control is a mailto link until the
+ * page is live.
  */
 
 type IconName =
@@ -252,6 +255,8 @@ const OaisysContact: React.FC = () => (
             →
           </span>
         </a>
+
+        <PresenceCheckRequest />
 
         <div className="oc-grid">
           {contactActions.map((a) => (
