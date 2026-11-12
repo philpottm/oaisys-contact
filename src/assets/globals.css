@@ -1479,7 +1479,7 @@
   .oc-primary, .oc-tile, .oc-row, .oc-chevron, .oc-social { transition: none; }
 }
 
-/* "Request Free Digital Presence Check": a second prominent card under Book a meeting
+/* "Request Digital Presence Check": a second prominent card under Book a meeting
    (white with a blue edge, so the blue card stays the main action), and its form in a
    modal dialog. Same radius, spacing and colours as the rest of the sheet. */
 .oc-check-cta {
@@ -1598,7 +1598,8 @@ body:has(.oc-dialog[open]) {
   font-size: 14px;
   margin-bottom: 4px;
 }
-.oc-field input {
+.oc-field input,
+.oc-field select {
   width: 100%;
   font: inherit;
   font-size: 16px; /* 16px stops iOS zooming the page when a field is focused */
@@ -1608,12 +1609,14 @@ body:has(.oc-dialog[open]) {
   background: #fff;
   color: var(--oc-ink);
 }
-.oc-field input:focus-visible {
+.oc-field input:focus-visible,
+.oc-field select:focus-visible {
   outline: 3px solid var(--oc-sand);
   outline-offset: 1px;
   border-color: var(--oc-blue);
 }
-.oc-field input[aria-invalid="true"] {
+.oc-field input[aria-invalid="true"],
+.oc-field select[aria-invalid="true"] {
   border-color: #b4502b;
 }
 .oc-error {

@@ -2,7 +2,7 @@ import { expect, test, type Page, type Route } from "@playwright/test";
 import { join } from "node:path";
 
 /**
- * "Request Free Digital Presence Check" on the contact page (the default,
+ * "Request Digital Presence Check" on the contact page (the default,
  * non-showcase build, which is what contact.oaisys.gr serves). The audit
  * desk's intake route is stubbed with page.route, so nothing leaves the test.
  */
@@ -44,7 +44,7 @@ const ok = (route: Route) =>
 async function openForm(page: Page) {
   await page.goto("/");
   await page
-    .getByRole("link", { name: /Request Free Digital Presence Check/ })
+    .getByRole("link", { name: /Request Digital Presence Check/ })
     .click();
   await expect(page.getByRole("dialog")).toBeVisible();
 }
@@ -54,6 +54,7 @@ async function fillValid(page: Page) {
   await page.getByLabel("Telephone number").fill("+30 694 162 0276");
   await page.getByLabel("Email address").fill("eleni@example.gr");
   await page.getByLabel("Your website").fill("www.blue-bay.example.gr");
+  await page.getByLabel("How did you hear about us?").selectOption("Website");
 }
 
 test("the request card sits directly under Book a meeting", async ({
@@ -65,7 +66,7 @@ test("the request card sits directly under Book a meeting", async ({
     return links.slice(0, 2).map((a) => a.textContent ?? "");
   });
   expect(order[0]).toContain("Book a meeting");
-  expect(order[1]).toContain("Request Free Digital Presence Check");
+  expect(order[1]).toContain("Request Digital Presence Check");
   // Book a meeting is untouched.
   await expect(
     page.getByRole("link", { name: /Book a meeting/ }),
@@ -77,7 +78,7 @@ test("the card is a pre-addressed email link until the form takes over", async (
 }) => {
   await page.goto("/");
   await expect(
-    page.getByRole("link", { name: /Request Free Digital Presence Check/ }),
+    page.getByRole("link", { name: /Request Digital Presence Check/ }),
   ).toHaveAttribute("href", /^mailto:info@oaisys\.gr\?subject=/);
 });
 
@@ -88,7 +89,7 @@ test("the send button stays disabled until the email opt-in is ticked", async ({
   await openForm(page);
   await fillValid(page);
 
-  const send = page.getByRole("button", { name: "Request my free check" });
+  const send = page.getByRole("button", { name: "Request my check" });
   const consent = page.getByRole("checkbox");
   await expect(consent).not.toBeChecked();
   await expect(send).toBeDisabled();
@@ -106,8 +107,8 @@ test("the opt-in is plain wording, not terms and conditions", async ({
   await openForm(page);
   const label = page.locator(".oc-consent label");
   await expect(label).toContainText("Oaisys may email me");
-  await expect(label).toContainText("Digital Presence Check report");
-  await expect(label).not.toContainText(/terms|conditions/i);
+  await expect(label).toContainText("Digital Presence Check");
+  await expect(label).not.toContainText(/terms|conditions|free/i);
 });
 
 test("a valid request posts once with the opt-in and shows the thank-you", async ({
@@ -117,7 +118,7 @@ test("a valid request posts once with the opt-in and shows the thank-you", async
   await openForm(page);
   await fillValid(page);
   await page.getByRole("checkbox").check();
-  await page.getByRole("button", { name: "Request my free check" }).click();
+  await page.getByRole("button", { name: "Request my check" }).click();
 
   await expect(page.getByText("Thank you, your request is in.")).toBeVisible();
   await expect(page.getByText("eleni@example.gr")).toBeVisible();
@@ -128,17 +129,20 @@ test("a valid request posts once with the opt-in and shows the thank-you", async
     phone: "+30 694 162 0276",
     email: "eleni@example.gr",
     website: "www.blue-bay.example.gr",
+    heardFrom: "Website",
+    heardFromOther: "",
     consent: true,
-    consentVersion: "presence-check-consent-2026-11-12.1",
+    consentVersion: "presence-check-consent-2026-11-12.2",
     company: "",
   });
   expect(String(sent[0].body.consentText)).toContain("Oaisys may email me");
+  expect(String(sent[0].body.consentText)).not.toContain("free");
 
   // Closing and reopening gives a fresh form.
   await page.getByRole("button", { name: "Close" }).first().click();
   await expect(page.getByRole("dialog")).toBeHidden();
   await page
-    .getByRole("link", { name: /Request Free Digital Presence Check/ })
+    .getByRole("link", { name: /Request Digital Presence Check/ })
     .click();
   await expect(page.getByLabel("Your name")).toHaveValue("");
   await expect(page.getByRole("checkbox")).not.toBeChecked();
@@ -152,15 +156,48 @@ test("mistakes are shown by field and nothing is sent", async ({ page }) => {
   await page.getByLabel("Email address").fill("nope");
   await page.getByLabel("Your website").fill("localhost");
   await page.getByRole("checkbox").check();
-  await page.getByRole("button", { name: "Request my free check" }).click();
+  await page.getByRole("button", { name: "Request my check" }).click();
 
   await expect(
     page.getByText("Please enter a valid email address."),
   ).toBeVisible();
   await expect(page.getByText(/telephone number we can reach/)).toBeVisible();
   await expect(page.getByText(/Please enter your website/)).toBeVisible();
+  await expect(
+    page.getByText("Please choose how you heard about us."),
+  ).toBeVisible();
   await expect(page.getByLabel("Telephone number")).toBeFocused();
   expect(sent).toHaveLength(0);
+});
+
+test("choosing Other shows a required box; only then is it sent", async ({
+  page,
+}) => {
+  const sent = await stub(page, ok);
+  await openForm(page);
+  const otherBox = page.getByLabel("Please tell us more");
+  await expect(otherBox).toBeHidden();
+
+  await page.getByLabel("How did you hear about us?").selectOption("Other");
+  await expect(otherBox).toBeVisible();
+
+  await fillValid(page);
+  await page.getByLabel("How did you hear about us?").selectOption("Other");
+  await page.getByRole("checkbox").check();
+  await page.getByRole("button", { name: "Request my check" }).click();
+  await expect(
+    page.getByText("Please tell us how you heard about us."),
+  ).toBeVisible();
+  expect(sent).toHaveLength(0);
+
+  await otherBox.fill("A friend recommended Oaisys");
+  await page.getByRole("button", { name: "Request my check" }).click();
+  await expect(page.getByText("Thank you, your request is in.")).toBeVisible();
+  expect(sent).toHaveLength(1);
+  expect(sent[0].body).toMatchObject({
+    heardFrom: "Other",
+    heardFromOther: "A friend recommended Oaisys",
+  });
 });
 
 test("the honeypot is out of sight, out of the tab order and hidden from assistive tech", async ({
@@ -188,7 +225,7 @@ test("a busy or failing server shows a calm message and keeps the form", async (
   await openForm(page);
   await fillValid(page);
   await page.getByRole("checkbox").check();
-  const send = page.getByRole("button", { name: "Request my free check" });
+  const send = page.getByRole("button", { name: "Request my check" });
 
   await send.click();
   await expect(page.locator(".oc-problem")).toContainText("Too many requests");

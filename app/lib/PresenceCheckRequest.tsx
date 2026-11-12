@@ -3,6 +3,7 @@
 import React, { useId, useRef, useState } from "react";
 import {
   CONSENT_TEXT,
+  HEARD_FROM_OPTIONS,
   HONEYPOT_FIELD,
   attemptSubmit,
   type FieldErrors,
@@ -10,7 +11,7 @@ import {
 } from "./presenceCheck";
 
 /**
- * The "Request Free Digital Presence Check" control and its form. The control
+ * The "Request Digital Presence Check" control and its form. The control
  * is an ordinary link to a pre-addressed email, so a click that arrives before
  * the page has loaded still reaches Oaisys; once the page is live it opens a
  * modal dialog with the form instead. The send button stays disabled until the
@@ -18,9 +19,16 @@ import {
  */
 
 const FALLBACK_MAIL =
-  "mailto:info@oaisys.gr?subject=Free%20Digital%20Presence%20Check";
+  "mailto:info@oaisys.gr?subject=Digital%20Presence%20Check";
 
-const EMPTY: PresenceFields = { name: "", phone: "", email: "", website: "" };
+const EMPTY: PresenceFields = {
+  name: "",
+  phone: "",
+  email: "",
+  website: "",
+  heardFrom: "",
+  heardFromOther: "",
+};
 
 const FIELDS: {
   key: keyof PresenceFields;
@@ -105,8 +113,8 @@ const RequestPanel: React.FC<{ onClose: () => void; onSent: () => void }> = ({
       <output className="oc-thanks">
         <span className="oc-thanks-title">Thank you, your request is in.</span>
         <span>
-          We will be in touch at <strong>{sentTo}</strong> with your free
-          Digital Presence Check.
+          We will be in touch at <strong>{sentTo}</strong> with your Digital
+          Presence Check.
         </span>
         <button type="button" className="oc-submit" onClick={onClose}>
           Close
@@ -161,6 +169,58 @@ const RequestPanel: React.FC<{ onClose: () => void; onSent: () => void }> = ({
         />
       </div>
 
+      <div className="oc-field">
+        <label htmlFor={id("heardFrom")}>How did you hear about us?</label>
+        <select
+          id={id("heardFrom")}
+          name="heardFrom"
+          value={fields.heardFrom}
+          aria-invalid={errors.heardFrom ? true : undefined}
+          aria-describedby={errors.heardFrom ? id("heardFrom-err") : undefined}
+          onChange={(e) =>
+            setFields({ ...fields, heardFrom: e.target.value })
+          }
+        >
+          <option value="" disabled>
+            Please choose…
+          </option>
+          {HEARD_FROM_OPTIONS.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+        {errors.heardFrom ? (
+          <p className="oc-error" id={id("heardFrom-err")}>
+            {errors.heardFrom}
+          </p>
+        ) : null}
+      </div>
+
+      {fields.heardFrom === "Other" ? (
+        <div className="oc-field">
+          <label htmlFor={id("heardFromOther")}>Please tell us more</label>
+          <input
+            id={id("heardFromOther")}
+            name="heardFromOther"
+            type="text"
+            value={fields.heardFromOther}
+            aria-invalid={errors.heardFromOther ? true : undefined}
+            aria-describedby={
+              errors.heardFromOther ? id("heardFromOther-err") : undefined
+            }
+            onChange={(e) =>
+              setFields({ ...fields, heardFromOther: e.target.value })
+            }
+          />
+          {errors.heardFromOther ? (
+            <p className="oc-error" id={id("heardFromOther-err")}>
+              {errors.heardFromOther}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
+
       <div className="oc-consent">
         <input
           id={id("consent")}
@@ -184,7 +244,7 @@ const RequestPanel: React.FC<{ onClose: () => void; onSent: () => void }> = ({
         disabled={!consent || sending}
         aria-describedby={consent ? undefined : id("hint")}
       >
-        {sending ? "Sending…" : "Request my free check"}
+        {sending ? "Sending…" : "Request my check"}
       </button>
       {consent ? null : (
         <p className="oc-hint" id={id("hint")}>
@@ -221,7 +281,7 @@ const PresenceCheckRequest: React.FC = () => {
         </span>
         <span className="oc-primary-text">
           <span className="oc-check-title">
-            Request Free Digital Presence Check
+            Request Digital Presence Check
           </span>
           <span className="oc-check-detail">
             See how your business shows up online
@@ -246,7 +306,7 @@ const PresenceCheckRequest: React.FC = () => {
       >
         <div className="oc-dialog-bar">
           <h2 id={title} className="oc-dialog-title">
-            Free Digital Presence Check
+            Digital Presence Check
           </h2>
           <button
             type="button"

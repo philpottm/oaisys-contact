@@ -15,17 +15,19 @@ const GOOD = {
   phone: "+30 694 162 0276",
   email: "eleni@example.gr",
   website: "www.blue-bay.example.gr",
+  heardFrom: "Website",
+  heardFromOther: "",
 };
 
 test("the opt-in wording and its key are the ones the audit server carries", () => {
   // Pinned on purpose: the server (tools/presales-audit/web/presence.mjs in the
   // oaisys repo) accepts only this exact pair. Changing the words means a NEW key
   // in both places, never an edit.
-  expect(CONSENT_VERSION).toBe("presence-check-consent-2026-11-12.1");
+  expect(CONSENT_VERSION).toBe("presence-check-consent-2026-11-12.2");
   expect(CONSENT_TEXT).toBe(
-    "I agree that Oaisys may email me, including to process my request and send me my free Digital Presence Check report, and to follow up about its services. I can withdraw this at any time by replying to any email or writing to info@oaisys.gr.",
+    "I agree that Oaisys may email me, including to process this request and send me the Digital Presence Check, and to follow up about its services. I can withdraw this at any time by replying to any email or writing to info@oaisys.gr.",
   );
-  expect(CONSENT_TEXT).not.toMatch(/terms|conditions/i);
+  expect(CONSENT_TEXT).not.toMatch(/terms|conditions|free/i);
 });
 
 test("the form posts to the audit desk's public intake route", () => {
@@ -44,13 +46,37 @@ test("each field is checked and named", () => {
     phone: "12",
     email: "nope",
     website: "localhost",
+    heardFrom: "",
+    heardFromOther: "",
   });
   expect(Object.keys(errors).toSorted()).toEqual([
     "email",
+    "heardFrom",
     "name",
     "phone",
     "website",
   ]);
+});
+
+test("how they heard: an unknown option is refused, and Other needs its box", () => {
+  expect(validateFields({ ...GOOD, heardFrom: "TikTok" }).heardFrom).toBe(
+    "Please choose how you heard about us.",
+  );
+  expect(
+    validateFields({ ...GOOD, heardFrom: "Other", heardFromOther: " " })
+      .heardFromOther,
+  ).toBe("Please tell us how you heard about us.");
+  expect(
+    validateFields({
+      ...GOOD,
+      heardFrom: "Other",
+      heardFromOther: "A friend's post on LinkedIn",
+    }),
+  ).toEqual({});
+  // A non-Other choice never needs the box, even if it somehow has text.
+  expect(
+    validateFields({ ...GOOD, heardFrom: "Instagram", heardFromOther: "x" }),
+  ).toEqual({});
 });
 
 const websiteOk = (website: string) =>
@@ -72,18 +98,27 @@ test("websites may be typed without a scheme but must be a public name", () => {
   }
 });
 
-test("the payload carries the opt-in, the wording key and the honeypot", () => {
+test("the payload carries the opt-in, the wording key, the source and the honeypot", () => {
   const payload = buildPayload({ ...GOOD, name: "  Eleni  " }, true, "");
   expect(payload).toMatchObject({
     name: "Eleni",
     phone: GOOD.phone,
     email: GOOD.email,
     website: GOOD.website,
+    heardFrom: "Website",
+    heardFromOther: "",
     consent: true,
     consentVersion: CONSENT_VERSION,
     consentText: CONSENT_TEXT,
     [HONEYPOT_FIELD]: "",
   });
+  expect(
+    buildPayload(
+      { ...GOOD, heardFrom: "Other", heardFromOther: "  A friend  " },
+      true,
+      "",
+    ),
+  ).toMatchObject({ heardFrom: "Other", heardFromOther: "A friend" });
 });
 
 test("without the opt-in nothing is sent", async () => {

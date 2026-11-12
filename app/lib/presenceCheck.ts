@@ -1,5 +1,5 @@
 /**
- * "Request Free Digital Presence Check": the form's rules and its one network
+ * "Request Digital Presence Check": the form's rules and its one network
  * call. This page is static (GitHub Pages), so the browser sends the request to
  * the Oaisys audit desk's public intake route, which validates it again, stores
  * it and emails info@oaisys.gr. Pure functions only; the component owns the UI.
@@ -15,18 +15,30 @@ export const PRESENCE_ENDPOINT =
  * time the box was ticked. Change the words => add a NEW key here and on the
  * server (never edit an old one): requests keep the key of what was shown.
  */
-export const CONSENT_VERSION = "presence-check-consent-2026-11-12.1";
+export const CONSENT_VERSION = "presence-check-consent-2026-11-12.2";
 export const CONSENT_TEXT =
-  "I agree that Oaisys may email me, including to process my request and send me my free Digital Presence Check report, and to follow up about its services. I can withdraw this at any time by replying to any email or writing to info@oaisys.gr.";
+  "I agree that Oaisys may email me, including to process this request and send me the Digital Presence Check, and to follow up about its services. I can withdraw this at any time by replying to any email or writing to info@oaisys.gr.";
 
 /** The honeypot's field name: hidden from people, tempting to bots. */
 export const HONEYPOT_FIELD = "company";
+
+/** How a visitor heard about Oaisys; the server carries the same list. */
+export const HEARD_FROM_OPTIONS = [
+  "Instagram",
+  "Facebook",
+  "Website",
+  "Conference",
+  "Word of mouth",
+  "Other",
+] as const;
 
 export type PresenceFields = {
   name: string;
   phone: string;
   email: string;
   website: string;
+  heardFrom: string;
+  heardFromOther: string;
 };
 export type FieldErrors = Partial<Record<keyof PresenceFields, string>>;
 
@@ -56,6 +68,14 @@ export function validateFields(fields: PresenceFields): FieldErrors {
   }
   if (!looksLikeWebsite(website)) {
     errors.website = "Please enter your website, for example www.example.gr.";
+  }
+  if (!HEARD_FROM_OPTIONS.includes(fields.heardFrom as (typeof HEARD_FROM_OPTIONS)[number])) {
+    errors.heardFrom = "Please choose how you heard about us.";
+  } else if (fields.heardFrom === "Other") {
+    const other = fields.heardFromOther.trim();
+    if (!other || other.length > 120) {
+      errors.heardFromOther = "Please tell us how you heard about us.";
+    }
   }
   return errors;
 }
@@ -91,6 +111,8 @@ export function buildPayload(
     phone: fields.phone.trim(),
     email: fields.email.trim(),
     website: fields.website.trim(),
+    heardFrom: fields.heardFrom,
+    heardFromOther: fields.heardFrom === "Other" ? fields.heardFromOther.trim() : "",
     consent,
     consentVersion: CONSENT_VERSION,
     consentText: CONSENT_TEXT,
@@ -103,7 +125,7 @@ export type SubmitResult =
   | { ok: false; kind: "invalid"; fields: FieldErrors }
   | { ok: false; kind: "busy" | "server" | "network" };
 
-const FIELD_KEYS = ["name", "phone", "email", "website"] as const;
+const FIELD_KEYS = ["name", "phone", "email", "website", "heardFrom", "heardFromOther"] as const;
 
 async function readOutcome(response: Response): Promise<SubmitResult> {
   if (response.ok) return { ok: true };

@@ -1,6 +1,6 @@
 name: Presence Check Form Tests
 
-# The "Request Free Digital Presence Check" form on the contact page. The older
+# The "Request Digital Presence Check" form on the contact page. The older
 # "Playwright Tests" workflow targets the Linkfolio template and cannot serve
 # this static export (`next start` refuses `output: "export"`), so the form has
 # its own checks: typecheck, its unit tests, and a browser run against the built
