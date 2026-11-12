@@ -25,7 +25,12 @@ export default defineConfig({
      `tests/unit/` belongs to playwright.unit.config.ts: those tests call
      functions directly, so running them once per browser project would be six
      identical runs behind a production build. */
-  testIgnore: ["**/*.test.mjs", "**/profile/**", "**/unit/**"],
+  testIgnore: [
+    "**/*.test.mjs",
+    "**/profile/**",
+    "**/unit/**",
+    "**/presence/**",
+  ],
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

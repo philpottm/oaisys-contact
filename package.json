@@ -92,6 +92,7 @@
     "indexnow": "node scripts/indexnow.ts",
     "test": "playwright test",
     "test:unit": "vitest run",
+    "test:presence": "playwright test -c playwright.presence.config.ts",
     "test:package": "pnpm run build:package && node --test tests/package-assets.test.mjs",
     "test:update": "playwright test --update-snapshots",
     "typecheck": "tsc -p tsconfig.test.json --noEmit"
