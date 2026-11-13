@@ -170,7 +170,8 @@ const moreActions: Action[] = [
     href: "https://oaisys.gr",
     icon: "globe",
     title: "Visit oaisys.gr",
-    detail: "AI booking assistant for Greek tourism operators",
+    detail:
+      "Access modern technology to solve the problems costing you time and bookings.",
     external: true,
   },
 ];

@@ -51,7 +51,7 @@ export default defineConfig({
     /* LINKFOLIO_SHOWCASE=0 explicitly: real process env outranks .env files,
        so a developer machine whose local .env sets the flag still builds the
        clean personal page here. */
-    command: `LINKFOLIO_SHOWCASE=0 LINKFOLIO_LAYOUT=${layout} pnpm build && LINKFOLIO_SHOWCASE=0 LINKFOLIO_LAYOUT=${layout} pnpm exec next start -p ${port}`,
+    command: `LINKFOLIO_SHOWCASE=0 LINKFOLIO_LAYOUT=${layout} pnpm build && node scripts/serve-export.mjs --dir out --port ${port}`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
   },

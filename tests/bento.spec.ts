@@ -106,8 +106,10 @@ test.describe("bento layout", () => {
     await selectLayout(page, "bento");
 
     const small = await tileBox(page, "1x1");
+    // The demo renders this deployment's own links: 1x1 tiles, the website
+    // group's 2x1 default and the "Book a meeting" link's explicit 2x2. No
+    // link here declares 1x2, so there is no such tile to measure.
     const wide = await tileBox(page, "2x1");
-    const tall = await tileBox(page, "1x2");
     const large = await tileBox(page, "2x2");
 
     // Two columns plus the gap between them, so a shade over 2x — never 1x
@@ -117,27 +119,26 @@ test.describe("bento layout", () => {
       expect(tile.width / small.width).toBeLessThan(2.3);
     }
 
-    expect(tall.width).toBeCloseTo(small.width, 0);
     expect(wide.height).toBeCloseTo(small.height, 0);
-
-    for (const tile of [tall, large]) {
-      expect(tile.height / small.height).toBeGreaterThan(1.8);
-      expect(tile.height / small.height).toBeLessThan(2.3);
-    }
+    expect(large.height / small.height).toBeGreaterThan(1.8);
+    expect(large.height / small.height).toBeLessThan(2.3);
   });
 
   test("a link's own span overrides its group's default", async ({ page }) => {
     await page.goto("/demo");
     await selectLayout(page, "bento");
 
-    // GitHub is a socialnetwork link — 1x1 by default — carrying span "1x2"
-    // in the demo config, so the group default must lose.
-    const github = page.locator('.network:has(:text-is("GitHub"))');
-    await expect(github).toHaveAttribute("data-span", "1x2");
+    // src/lib/bento.ts gives the website group a 2x1 default; "Book a meeting"
+    // carries span "2x2" on the link itself, so the group default must lose on
+    // the height axis.
+    const meeting = page.locator(
+      '.network[data-span="2x2"]:has-text("Book a meeting")',
+    );
+    await expect(meeting).toHaveAttribute("data-span", "2x2");
 
     const small = await tileBox(page, "1x1");
-    const box = await github.boundingBox();
-    if (!box) throw new Error("GitHub tile not rendered");
+    const box = await meeting.boundingBox();
+    if (!box) throw new Error("Book a meeting tile not rendered");
 
     expect(box.height / small.height).toBeGreaterThan(1.8);
   });

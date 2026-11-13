@@ -1357,7 +1357,6 @@
   box-shadow: 0 10px 22px -12px rgb(53 111 161 / 0.8);
   transition: background-color 160ms ease, transform 160ms ease;
 }
-.oc-primary:hover { background: var(--oc-blue-deep); }
 .oc-primary:active { transform: scale(0.985); }
 .oc-primary-icon {
   flex: none;
@@ -1375,7 +1374,6 @@
 .oc-primary-detail { font-size: 14px; color: var(--oc-sky); margin-top: 2px; }
 .oc-chevron { flex: none; font-size: 18px; color: var(--oc-sand); transition: transform 160ms ease; }
 .oc-primary .oc-chevron { color: var(--oc-sand-light); }
-.oc-primary:hover .oc-chevron, .oc-row:hover .oc-chevron { transform: translateX(3px); }
 .oc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1386,10 +1384,6 @@
   border-radius: 14px;
   background: #fff;
   transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
-}
-.oc-tile:hover, .oc-row:hover {
-  border-color: var(--oc-sky);
-  box-shadow: 0 8px 20px -14px rgb(53 111 161 / 0.6);
 }
 .oc-tile:active, .oc-row:active { transform: scale(0.985); }
 .oc-tile {
@@ -1443,11 +1437,23 @@
   border: 1.5px solid var(--oc-sky);
   transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
 }
-.oc-back .oc-social:hover {
-  --oc-icon-cut: var(--oc-blue);
-  background: var(--oc-blue);
-  border-color: var(--oc-blue);
-  color: #fff;
+/* Pointer-driven styling lives behind the coarse-pointer guard, next to the
+   .lf-* rules above: on a touch screen a tapped element keeps :hover until the
+   next tap elsewhere, so an unguarded rule leaves the card stuck in its
+   hovered state. tests/interaction.spec.ts enforces the guard. */
+@media (hover: hover) and (pointer: fine) {
+  .oc-primary:hover { background: var(--oc-blue-deep); }
+  .oc-primary:hover .oc-chevron, .oc-row:hover .oc-chevron { transform: translateX(3px); }
+  .oc-tile:hover, .oc-row:hover {
+    border-color: var(--oc-sky);
+    box-shadow: 0 8px 20px -14px rgb(53 111 161 / 0.6);
+  }
+  .oc-back .oc-social:hover {
+    --oc-icon-cut: var(--oc-blue);
+    background: var(--oc-blue);
+    border-color: var(--oc-blue);
+    color: #fff;
+  }
 }
 .oc-back a:focus-visible {
   outline: 3px solid var(--oc-sand);

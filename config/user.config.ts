@@ -21,17 +21,17 @@ const userConfig: UserConfigType = {
   avatarAlt: "Oaisys",
   fullName: "Oaisys",
   alias: "@oaisys",
-  metaTitle: "Oaisys — AI booking assistant for Greek tourism operators",
+  metaTitle: "Oaisys — Your Business, Better.",
   metaDescription:
-    "Oaisys builds and runs an AI assistant for small Greek tourism businesses: WhatsApp and email enquiries answered in seconds, bookings kept on one diary, and a calm daily view for the owner.",
+    "Access modern technology to solve the problems costing you time and bookings. For tourism businesses in Greece: accommodation, rentals, tours and food.",
   keywords: [
     "Oaisys",
-    "AI booking assistant",
-    "Greek tourism",
+    "tourism businesses",
+    "Greece",
     "hospitality",
     "Thessaloniki",
   ],
-  jobTitle: "AI booking assistant for Greek tourism operators",
+  jobTitle: "Technology for tourism businesses in Greece",
   worksFor: "Oaisys",
   locale: "en_GB",
   lang: "en",
@@ -54,7 +54,8 @@ const userConfig: UserConfigType = {
       url: "https://oaisys.gr",
       iconSrc: "/assets/mark.png",
       title: "Oaisys",
-      description: "AI booking assistant for Greek tourism operators",
+      description:
+        "Access modern technology to solve the problems costing you time and bookings.",
       group: "website",
     },
     {
