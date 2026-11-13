@@ -13,10 +13,23 @@ const RETIRED = [
   /OaiSYS|OaiSys/,
 ];
 
+/* The homepage one-liner on oaisys.gr, verbatim. It is the site link's subtitle, not the
+   lockup tagline: the tagline already sits under the logo, so it appears only there. */
+const ONE_LINER =
+  "Access modern technology to solve the problems costing you time and bookings.";
+const TAGLINE = "Your Business, Better.";
+
 test("metadata carries the current positioning and brand string", () => {
   expect(userConfig.metaTitle).toBe("Oaisys — Your Business, Better.");
   const text = JSON.stringify(userConfig);
   for (const pattern of RETIRED) expect(text).not.toMatch(pattern);
+});
+
+test("the oaisys.gr card describes the site with its homepage one-liner", () => {
+  const website = userConfig.socialNetworks?.find(
+    (link) => link.url === "https://oaisys.gr",
+  );
+  expect(website?.description).toBe(ONE_LINER);
 });
 
 test("the contact cards no longer use the retired line", () => {
@@ -24,4 +37,10 @@ test("the contact cards no longer use the retired line", () => {
   for (const pattern of [/booking assistant/i, /tourism operators/i]) {
     expect(page).not.toMatch(pattern);
   }
+  expect(page).toContain(ONE_LINER);
+});
+
+test("the tagline is not duplicated below the logo", () => {
+  const page = readFileSync("app/lib/OaisysContact.tsx", "utf8");
+  expect(page.split(TAGLINE)).toHaveLength(2);
 });

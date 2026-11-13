@@ -54,7 +54,8 @@ const userConfig: UserConfigType = {
       url: "https://oaisys.gr",
       iconSrc: "/assets/mark.png",
       title: "Oaisys",
-      description: "Your Business, Better.",
+      description:
+        "Access modern technology to solve the problems costing you time and bookings.",
       group: "website",
     },
     {
