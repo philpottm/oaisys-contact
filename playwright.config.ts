@@ -89,7 +89,7 @@ export default defineConfig({
      deployment — the default build — is covered by
      playwright.profile.config.ts. */
   webServer: {
-    command: `LINKFOLIO_SHOWCASE=1 pnpm build && LINKFOLIO_SHOWCASE=1 pnpm exec next start -p ${port}`,
+    command: `LINKFOLIO_SHOWCASE=1 pnpm build && node scripts/serve-export.mjs --dir out --port ${port}`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
   },

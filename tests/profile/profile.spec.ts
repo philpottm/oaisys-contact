@@ -6,22 +6,28 @@ import { test, expect } from "@playwright/test";
  * asserted here is the mirror image of tests/landing.spec.ts.
  */
 
-test("the root is the personal profile, not the landing page", async ({
+test("the root is the Oaisys contact card, not the landing page", async ({
   page,
 }) => {
   await page.goto("/");
 
-  await expect(page.locator(".lf-card")).toBeVisible();
+  await expect(page.locator(".oc-tagline")).toHaveText(
+    "Your Business, Better.",
+  );
   await expect(page.locator("h1")).toHaveCount(1);
 
-  const scripts = await page
-    .locator('script[type="application/ld+json"]')
-    .allTextContents();
-  const jsonLd = scripts.join("");
+  // The lockup tagline appears once, under the logo; the website row carries
+  // the homepage one-liner instead of repeating it.
+  await expect(page.getByText("Your Business, Better.")).toHaveCount(1);
+  await expect(
+    page.getByText(
+      "Access modern technology to solve the problems costing you time and bookings.",
+    ),
+  ).toHaveCount(1);
 
-  expect(jsonLd).toContain('"@type":"ProfilePage"');
-  expect(jsonLd).toContain('"@type":"Person"');
-  expect(jsonLd).not.toContain("SoftwareApplication");
+  // The template's own card never renders on this deployment.
+  await expect(page.locator(".lf-card")).toHaveCount(0);
+  await expect(page.locator(".lf-links")).toHaveCount(0);
 });
 
 test("the marketing routes render the 404 page", async ({ page }) => {
@@ -57,13 +63,18 @@ test("the sitemap lists only the root", async ({ request }) => {
   expect(xml.match(/<loc>/g)).toHaveLength(1);
 });
 
-test("the project llms.txt and llms-full.txt are not published", async ({
-  request,
-}) => {
+test("the project llms documents are not published", async ({ request }) => {
   for (const path of ["/llms.txt", "/llms-full.txt"]) {
     const response = await request.get(path);
 
-    expect(response.status(), path).toBe(404);
+    // The route handlers answer 404 when LINKFOLIO_SHOWCASE is unset, but a
+    // static export still writes a file for each route and the host serves it
+    // as a 200 — the same soft-404 shape as /docs above. The contract that
+    // survives that is the content: the Linkfolio corpus is not there.
+    const body = await response.text();
+
+    expect(response.status(), path).toBe(200);
+    expect(body.trim(), path).toBe("");
   }
 });
 
