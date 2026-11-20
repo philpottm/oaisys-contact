@@ -1,7 +1,14 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
 const CHATWOOT = "https://chat-oaisys.oaisys.gr";
 const INBOX = `${CHATWOOT}/public/api/v1/inboxes/test-inbox`;
+
+/** The element's box, failing the test (not the types) when it is not on the page. */
+async function boxOf(locator: Locator) {
+  const box = await locator.boundingBox();
+  if (!box) throw new Error("element has no layout box");
+  return box;
+}
 
 /** Fills the form with valid values and ticks consent. */
 async function fillForm(page: Page) {
@@ -29,14 +36,12 @@ test("the chat icon is a social icon: same size, last in the row, right of X", a
     "Chat with Oaisys",
   ]);
 
-  const x = await page.getByRole("link", { name: "X", exact: true }).boundingBox();
-  const chat = await page.getByRole("button", { name: "Chat with Oaisys" }).boundingBox();
-  expect(x).not.toBeNull();
-  expect(chat).not.toBeNull();
-  expect(chat!.width).toBeCloseTo(x!.width, 0);
-  expect(chat!.height).toBeCloseTo(x!.height, 0);
-  expect(chat!.y).toBeCloseTo(x!.y, 0);
-  expect(chat!.x).toBeGreaterThan(x!.x);
+  const x = await boxOf(page.getByRole("link", { name: "X", exact: true }));
+  const chat = await boxOf(page.getByRole("button", { name: "Chat with Oaisys" }));
+  expect(chat.width).toBeCloseTo(x.width, 0);
+  expect(chat.height).toBeCloseTo(x.height, 0);
+  expect(chat.y).toBeCloseTo(x.y, 0);
+  expect(chat.x).toBeGreaterThan(x.x);
 });
 
 test("nothing is fetched from Chatwoot until the icon is clicked, then the SDK runs with no floating bubble", async ({
@@ -120,12 +125,9 @@ test("a valid submit creates the contact, conversation and first message", async
   await page.route(`${INBOX}/**`, async (route) => {
     const url = route.request().url().replace(INBOX, "");
     bodies[url] = route.request().postDataJSON();
-    const reply =
-      url === "/contacts"
-        ? { source_id: "src-1" }
-        : url.endsWith("/conversations")
-          ? { id: 42 }
-          : {};
+    let reply = {};
+    if (url === "/contacts") reply = { source_id: "src-1" };
+    else if (url.endsWith("/conversations")) reply = { id: 42 };
     await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(reply) });
   });
   await page.goto("/");
