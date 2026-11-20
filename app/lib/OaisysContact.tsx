@@ -1,11 +1,15 @@
 import React from "react";
 import userConfig from "~/user.config";
+import OaisysChat from "./OaisysChat";
+import OaisysContactForm from "./OaisysContactForm";
 
 /**
  * Oaisys contact page, drawn from the printed business card: the front (brand
  * blue, reversed mark, "Oaisys" with a sky "ai", tagline, address) is the
  * hero; the back (white, a blue edge, sand labels) sets the action list.
- * Plain links only — no client JavaScript.
+ * Plain links, plus two optional client pieces that render only when the
+ * Chatwoot build variables are set: the chat icon in the social row and the
+ * "Send us a message" form (see app/lib/chatwoot.ts).
  */
 
 type IconName =
@@ -281,6 +285,7 @@ const OaisysContact: React.FC = () => (
               </span>
             </a>
           ))}
+          <OaisysContactForm />
         </div>
 
         <nav className="oc-socials" aria-label="Oaisys on social media">
@@ -296,6 +301,7 @@ const OaisysContact: React.FC = () => (
               <Icon name={s.icon} />
             </a>
           ))}
+          <OaisysChat />
         </nav>
 
         <footer className="oc-footer">

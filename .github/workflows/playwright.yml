@@ -45,6 +45,10 @@ jobs:
       # baselines are named per layout and do not collide.
       - name: Run profile-mode tests (bento)
         run: LINKFOLIO_LAYOUT=bento pnpm exec playwright test -c playwright.profile.config.ts
+      # The live-chat icon and contact form exist only in a build made with
+      # the Chatwoot variables, so they get their own build (placeholders).
+      - name: Run live-chat and contact-form tests
+        run: pnpm exec playwright test -c playwright.chat.config.ts
       - uses: actions/upload-artifact@v5
         if: always()
         with:
