@@ -78,3 +78,28 @@ Yes. Install the linkfolio package and render the LinkFolio component with your 
 Yes, and it is not the only option. Set analytics: { provider: "ga", id: "G-…" } in your config and Linkfolio loads the tag and reports which link each visitor clicked. Google Tag Manager, Plausible and Umami ship as built-in providers too, you can register your own, and every link card emits a linkfolio:analytics DOM event you can listen to without configuring any provider at all.
 
 <!-- /generated:faq -->
+
+## Live chat and contact form (contact.oaisys.gr)
+
+The Oaisys card has two optional pieces that land in the house Chatwoot
+(`chat-oaisys.oaisys.gr`): a round chat icon at the end of the social row
+(right of X, same size and style, no floating bubble; the Chatwoot SDK loads
+only on the first click) and a "Send us a message" row that opens a short form
+(name, email, business name, kind of business, message, a consent box linking
+the privacy notice, a hidden honeypot and a 30 second rate limit). A failed
+send shows a clickable `info@oaisys.gr` link.
+
+Both are off unless the build has these repository **Actions variables**
+(Settings, Secrets and variables, Actions, Variables). They are public
+identifiers, not secrets, and nothing is hard-coded:
+
+| Variable | Value | Turns on |
+| --- | --- | --- |
+| `CHATWOOT_WEBSITE_TOKEN` | Website inbox token (Chatwoot, Website inbox, Settings, Script) | the chat icon |
+| `CHATWOOT_INBOX_IDENTIFIER` | API inbox identifier (Chatwoot, API inbox, Configuration) | the contact form |
+| `CHATWOOT_BASE_URL` | optional, defaults to `https://chat-oaisys.oaisys.gr` | |
+
+In Chatwoot, add `https://contact.oaisys.gr` to the Website inbox's Allowed
+Domains, and make sure the API inbox has agents. Tests: `npm run test:chat`
+(a build with placeholder values; Chatwoot is never contacted) and the
+default-build check in `tests/profile/profile.spec.ts`.

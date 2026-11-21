@@ -24,8 +24,11 @@ export default defineConfig({
      playwright.profile.config.ts, which builds WITHOUT the showcase flag.
      `tests/unit/` belongs to playwright.unit.config.ts: those tests call
      functions directly, so running them once per browser project would be six
-     identical runs behind a production build. */
-  testIgnore: ["**/*.test.mjs", "**/profile/**", "**/unit/**"],
+     identical runs behind a production build.
+     `tests/chat/` belongs to playwright.chat.config.ts: those specs need the
+     Chatwoot build variables set, and against this build (variables unset, so
+     no chat icon or form) they would all fail. */
+  testIgnore: ["**/*.test.mjs", "**/profile/**", "**/unit/**", "**/chat/**"],
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

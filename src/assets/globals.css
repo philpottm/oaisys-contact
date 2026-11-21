@@ -1455,6 +1455,79 @@
     color: #fff;
   }
 }
+/* Chat icon: a <button> that must read as the other social links (same circle,
+   same size at both breakpoints), so reset only what the browser adds. */
+.oc-back button.oc-social {
+  appearance: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+}
+.oc-back button.oc-social[aria-busy="true"] { opacity: 0.6; cursor: progress; }
+.oc-back button:focus-visible {
+  outline: 3px solid var(--oc-sand);
+  outline-offset: 3px;
+}
+/* "Send us a message": a row that opens the form beneath it. */
+.oc-contact { display: flex; flex-direction: column; gap: 12px; }
+.oc-row-button {
+  appearance: none;
+  width: 100%;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+}
+.oc-panel[hidden] { display: none; }
+.oc-panel {
+  border: 1px solid var(--oc-line);
+  border-radius: 14px;
+  background: #fff;
+  padding: 16px 14px;
+}
+.oc-form { display: flex; flex-direction: column; gap: 12px; }
+.oc-field { display: flex; flex-direction: column; gap: 4px; }
+.oc-field label { font-weight: 600; font-size: 14px; color: var(--oc-ink); }
+.oc-field input:not([type="checkbox"]), .oc-field select, .oc-field textarea {
+  font: inherit;
+  font-size: 16px; /* 16px stops iOS zooming the page on focus */
+  color: var(--oc-ink);
+  background: #fff;
+  border: 1.5px solid var(--oc-sky);
+  border-radius: 10px;
+  padding: 10px 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.oc-field [aria-invalid="true"] { border-color: #b3261e; }
+.oc-field input:focus-visible, .oc-field select:focus-visible,
+.oc-field textarea:focus-visible, .oc-submit:focus-visible {
+  outline: 3px solid var(--oc-sand);
+  outline-offset: 2px;
+}
+.oc-error { font-size: 13px; color: #b3261e; min-height: 0; }
+.oc-error:empty { display: none; }
+.oc-consent label { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; font-size: 13px; color: var(--oc-muted); }
+.oc-consent input { margin-top: 3px; width: 18px; height: 18px; flex: none; }
+.oc-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.oc-submit {
+  appearance: none;
+  border: 0;
+  border-radius: 12px;
+  padding: 14px 18px;
+  background: var(--oc-blue);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.oc-submit:disabled { opacity: 0.6; cursor: progress; }
+.oc-status { display: block; font-size: 14px; color: #b3261e; margin: 0; min-height: 0; }
+.oc-status:empty { display: none; }
+.oc-back a.oc-link, .oc-link { color: var(--oc-blue); text-decoration: underline; }
+.oc-done { display: block; outline: none; }
 .oc-back a:focus-visible {
   outline: 3px solid var(--oc-sand);
   outline-offset: 3px;

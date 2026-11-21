@@ -93,6 +93,7 @@
     "test": "playwright test",
     "test:unit": "vitest run",
     "test:package": "pnpm run build:package && node --test tests/package-assets.test.mjs",
+    "test:chat": "playwright test -c playwright.chat.config.ts",
     "test:update": "playwright test --update-snapshots",
     "typecheck": "tsc -p tsconfig.test.json --noEmit"
   },

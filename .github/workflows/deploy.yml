@@ -28,6 +28,11 @@ jobs:
         env:
           NEXT_APP_URL: https://contact.oaisys.gr
           LINKFOLIO_LAYOUT: bento
+          # Public Chatwoot identifiers from repository Actions variables
+          # (README, "Live chat and contact form"). Unset: no icon, no form.
+          NEXT_PUBLIC_CHATWOOT_BASE_URL: ${{ vars.CHATWOOT_BASE_URL }}
+          NEXT_PUBLIC_CHATWOOT_WEBSITE_TOKEN: ${{ vars.CHATWOOT_WEBSITE_TOKEN }}
+          NEXT_PUBLIC_CHATWOOT_INBOX_IDENTIFIER: ${{ vars.CHATWOOT_INBOX_IDENTIFIER }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

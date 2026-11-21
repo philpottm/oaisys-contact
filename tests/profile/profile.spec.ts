@@ -89,3 +89,13 @@ test("the 404 page stops advertising the documentation", async ({ page }) => {
     page.getByRole("link", { name: "Back to the home page" }),
   ).toBeVisible();
 });
+
+test("without Chatwoot build variables the card has no chat icon and no form", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(page.getByRole("button", { name: "Chat with Oaisys" })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /Send us a message/ })).toHaveCount(0);
+  await expect(page.locator('script[src*="packs/js/sdk.js"]')).toHaveCount(0);
+  await expect(page.locator(".oc-socials > *")).toHaveCount(4);
+});
